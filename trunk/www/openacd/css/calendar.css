@@ -1,0 +1,78 @@
+.component_calendar {
+	text-align: center;
+	border: 1px solid #a2a2a2;
+	font-family: Arial, Tahoma, sans-serif;
+ 	z-index: 150000;
+	background-color: #f5f5f5;
+	width: 180px;
+	filter:alpha(opacity=95);
+	-moz-opacity: 0.95;
+	opacity: 0.95;
+}
+
+.component_calendar_header {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #b8cce7;
+	padding: 5px 0;
+	color: #12375a;
+}
+
+.component_calendar_header td {
+	cursor: pointer;
+	padding: 4px;
+	font-size: 12px;
+	text-align: center;
+}
+.component_calendar_header td.component_calendar_head_name {
+	cursor: default;
+	width: 100%;
+	font-size: 11px;
+}
+
+.component_calendar_table {
+	font-size: 11px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+.component_calendar_table td {
+	text-align: center;
+	width: 30px;
+	height: 20px;
+	background-color: #f5f5f5;
+	color: #444444;	
+	cursor: pointer;
+}
+
+.component_calendar_table td.wday {
+	font-weight: bolder;
+	background-color: #b8cce7;
+	color: #12375a;	
+	cursor: default;
+}
+
+.component_calendar_table td.outbound {
+	background-color: #e5e5e5;
+	color: #828282;
+}
+
+.component_calendar_table td.forbidden {
+	background-color: #efdfdf;
+	color: #828282;
+	text-decoration: line-through;
+}
+
+.component_calendar_table td.now {
+	background-color: #b8cce7;
+	color: #12375a;
+}
+
+.component_calendar_table td.over {
+	background-color: #b8cce7;
+	color: #12375a;	
+}
