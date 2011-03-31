@@ -492,6 +492,7 @@ sub sys_request {
 		return $result[0][0];
 	}
 	case 'operator_is_outgoing_calls' {
+		return 1 unless $param1;
 		my @result = sys_db_request("SELECT opr_outgoing_call FROM public.operators WHERE opr_id='$param1'");
 		return $result[0][0];
 	}
