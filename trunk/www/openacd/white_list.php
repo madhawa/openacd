@@ -3,7 +3,9 @@
 
     if($_POST["edid"]==-1 && $_POST["number"]!=''){
 	foreach (explode("\r\n",$_POST["number"]) as $number) {
-	    pg_exec("INSERT INTO public.white_list (wll_date, wll_number, wll_text, wll_service) VALUES (NOW(), '$number', '', '".$_POST["service"]."')");
+	    $text = strstr( $number, ' ' );
+	    $number = str_replace ( $text, '', $number );
+	    pg_exec("INSERT INTO public.white_list (wll_date, wll_number, wll_text, wll_service) VALUES (NOW(), '$number', '$text', '".$_POST["service"]."')");
 	}
 	header("Location: white_list.php");
     } elseif (is_numeric($_POST["edid"])){
@@ -46,6 +48,7 @@ if($_SESSION['logged']=='admin') {
     if(is_numeric($_GET["editid"])){
 ?>
     Номер: <input type="text" name="number" value="<?=$edit['wll_number']?>"><br />
+    Приветствие: <input type="text" name="text" value="<?=$edit['wll_text']?>"><br />
 <?} else {?>
     Список телефонов, разделенные переводом строки:<br>
     <textarea cols=70 rows=4 name="number"><?=$edit['wll_text']?></textarea><br>
