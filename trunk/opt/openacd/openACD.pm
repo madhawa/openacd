@@ -608,6 +608,7 @@ sub sys_request {
 #		$config->{"operators.default.max"} = 5;
 		return 0 unless $config->{"operators.default.max"};
 		my $ctd = sys_request('operators_online_all')-$config->{"operators.default.max"};
+		return 0 if $ctd <= 0;
 		sys_db_request( "DELETE FROM public.operators_login WHERE opl_id = any (array(select opl_id from public.operators_login where opl_status=1 limit $ctd))" );
 	}
 	case 'operators_busy' {
