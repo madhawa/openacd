@@ -7,16 +7,14 @@
 	    ($_POST["name"]=='monitor' &&
 	    md5($_POST["password"])=='08b5411f848a2581a41672a759c87380') 
 	) {
-	    $logged = $_POST["name"];
-	    session_register("logged");
+	    $_SESSION["logged"] = $_POST["name"];
 	    header("Location: online.php");
 	}
 	if (
 	    ($_POST["name"]=='admin' &&
 	    md5($_POST["password"])=='21232f297a57a5a743894a0e4a801fc3') 
 	) {
-	    $logged = $_POST["name"];
-	    session_register("logged");
+	    $_SESSION["logged"] = $_POST["name"];
 	    header("Location: operators.php");
 	}
     }
