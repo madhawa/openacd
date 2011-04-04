@@ -122,7 +122,7 @@ echo "<table border=1>
 	    if($t['status']==4 && $table_operators[$key]['srv_id']==$keys) {$color2="#0000".$c;}
 	    if($t['status']==9) {$color2="#66".$c."26";}
 	    if($t['status']==8) {$color2="#".$c."8040";}
-	    echo "<td align=center style='color:$color2'><b>".$t['status'];
+	    echo "<td align=center style='color:$color2'><b>";
 	    if($table_operators[$key]['srv_id']==$keys) {
 		echo "&#664;";
 		$stat_operators_calls_services[$keys]++;
