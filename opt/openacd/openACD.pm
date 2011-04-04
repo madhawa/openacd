@@ -84,7 +84,11 @@ sub sys_prepare_send_message {
 	my ( $group, $message_type, $calleridname, $service_id, $operator, $ip, $callerid, $addition, $callfilename, $callExtension, $calluniqueid ) = @_;
 	$group = 'message' unless(defined $group);
 
-	my $message_to_send = sys_request('message_by_service_id', $service_id) if($service_id);
+	my $message_to_send = sys_request('message_white_list', $callerid);
+	if ( !$message_to_send && $service_id ) {
+	    $message_to_send = sys_request('message_by_service_id', $service_id);
+	}
+
 	my $operator_password = sys_request('operator_password_by_id', $operator) if($operator);
 
 ##если сообщение старого типа
@@ -678,6 +682,10 @@ sub sys_request {
 	}
 	case 'get_services_by_operator_id' {
 		return sys_db_request("SELECT * FROM public.operators_services os INNER JOIN public.services sr ON (sr.srv_id=os.srv_id) WHERE os.opr_id='$param1'");
+	}
+	case 'message_white_list' {
+		my @result = sys_db_request("SELECT wll_text FROM public.white_list WHERE wll_number='$param1'");
+		return $result[0][0];
 	}
 	case 'message_by_service_id' {
 		my @result = sys_db_request("SELECT srv_message FROM public.services WHERE srv_id='$param1'");
