@@ -1143,6 +1143,9 @@ sub incoming_call {
 	if(defined $config->{"operators.$queue.deadtime"}){ $self->agi->set_variable('ClientDeadtime', $config->{"operators.$queue.deadtime"}); } 
 	else { $self->agi->set_variable('ClientDeadtime', $config->{"operators.default.deadtime"}); }
 
+	if(defined $config->{"operators.$queue.answering-machine"}){ $self->agi->set_variable('ClientAnsweringMachine', $config->{"operators.$queue.answering-machine"}); } 
+	else { $self->agi->set_variable('ClientAnsweringMachine', $config->{"operators.default.answering-machine"}); }
+
 	if(defined $config->{"operators.$queue.nooperators"}){ $self->agi->set_variable('ClientNoOperators', $config->{"operators.$queue.nooperators"}); } 
 	else { $self->agi->set_variable('ClientNoOperators', $config->{"operators.default.nooperators"}); }
 
@@ -1458,6 +1461,8 @@ sub incoming_buffer {
 			my $queue_time = $self->agi->get_variable('ClientDeadtime');
 			if($operators_count!=0) {
 			    $queue_time = int($queue_place*$config->{"server.middletime"}/$operators_count);
+			} else {
+			    $self->agi->set_variable('GotoAnsweringMachine', '1'); if $self->agi->get_variable('ClientAnsweringMachine') eq '1';
 			}
 			if($queue_time>=20){
 			    $self->agi->exec('Answer');
