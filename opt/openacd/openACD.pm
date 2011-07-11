@@ -1462,7 +1462,7 @@ sub incoming_buffer {
 			if($operators_count!=0) {
 			    $queue_time = int($queue_place*$config->{"server.middletime"}/$operators_count);
 			} else {
-			    $self->agi->set_variable('GotoAnsweringMachine', '1'); if $self->agi->get_variable('ClientAnsweringMachine') eq '1';
+			    $self->agi->set_variable('GotoAnsweringMachine', '1') if $self->agi->get_variable('ClientAnsweringMachine') eq '1';
 			}
 			if($queue_time>=20){
 			    $self->agi->exec('Answer');
