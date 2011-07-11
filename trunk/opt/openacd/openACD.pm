@@ -1409,6 +1409,10 @@ sub incoming_buffer {
 
 	#Иначе, если в очереди и нет оператора
 	if($all_bussy == 1) {
+		my $operators_count = sys_request('operators_online', $service_name);
+		if( !$operators_count && $self->agi->get_variable('ClientAnsweringMachine') eq '1' ) {
+		    $self->agi->set_variable('GotoAnsweringMachine', '1');
+		}
 #		$self->agi->set_variable('WaitQueue', 0) if($operators_free_count>1);
 		#Голос через определенное время
 		if($self->agi->get_variable('ClientBackVoice')!=0) {
@@ -1457,12 +1461,9 @@ sub incoming_buffer {
 			    $self->agi->exec('Ringing');
 			}
 =cut
-			my $operators_count = sys_request('operators_online', $service_name);
 			my $queue_time = $self->agi->get_variable('ClientDeadtime');
 			if($operators_count!=0) {
 			    $queue_time = int($queue_place*$config->{"server.middletime"}/$operators_count);
-			} else {
-			    $self->agi->set_variable('GotoAnsweringMachine', '1') if $self->agi->get_variable('ClientAnsweringMachine') eq '1';
 			}
 			if($queue_time>=20){
 			    $self->agi->exec('Answer');
